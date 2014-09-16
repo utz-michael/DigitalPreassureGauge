@@ -1,9 +1,9 @@
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-int long FuelMainCal = 0; 
-int long FuelCarburtorCal = 0; 
-int long FuelNOSCal = 0; 
+float FuelMainCal = 0; 
+float FuelCarburtorCal = 0; 
+float FuelNOSCal = 0; 
 
 float FuelMainPSI = 0; 
 float FuelCarburtorPSI = 0; 
@@ -29,22 +29,19 @@ delay(2000);
     lcd.setCursor(0, 1);
     lcd.print("Fuelpump off    ");
     
-for(int x =0 ; x < 100 ; x++){
+for(int x =0 ; x < 1000 ; x++){
  
- FuelMainCal = FuelMainCal + analogRead(1); 
+ FuelMainCal = FuelMainCal + analogRead(0); 
  FuelCarburtorCal = FuelCarburtorCal + analogRead(2); 
  FuelNOSCal = FuelNOSCal + analogRead(3); 
 }
-
- FuelMainCal = 27100;
- FuelCarburtorCal = 27100;
- FuelNOSCal = 27100;
-
- 
+ Serial.print("MainFuelCal 1: ");
+  Serial.println(FuelMainCal);
   
- FuelMainCal = FuelMainCal /100; 
- FuelCarburtorCal = FuelCarburtorCal /100; 
- FuelNOSCal = FuelNOSCal /100; 
+ FuelMainCal = (int)((FuelMainCal /1000)+ .5);
+ FuelCarburtorCal = (int)((FuelCarburtorCal /1000)+ .5); 
+ FuelNOSCal = (int)((FuelNOSCal /1000)+ .5); 
+ 
  Serial.print("MainFuelCal 2: ");
   Serial.println(FuelMainCal);
   
@@ -56,9 +53,9 @@ for(int x =0 ; x < 100 ; x++){
  do
 {
   delay(50);          // wait for sensors to stabilize
- FuelMain = analogRead(1);  // check the sensors
+ FuelMain = analogRead(0);  // check the sensors
 
-} while (FuelMainCal+10 < FuelMain);   
+} while (FuelMain < FuelMainCal +10 );   
 
 
 
@@ -66,7 +63,7 @@ for(int x =0 ; x < 100 ; x++){
 
 void loop() {
   // put your main code here, to run repeatedly:
-FuelMain = analogRead(1);
+FuelMain = analogRead(0);
 FuelCarburtor = analogRead(2);
 FuelNOS = analogRead(3);
 
@@ -80,6 +77,7 @@ String FuelMain_PSI = dtostrf(FuelMainPSI, 4, 1, buffer);
 String FuelCarburtor_PSI = dtostrf(FuelCarburtorPSI, 4, 1, buffer);
 
 String FuelNOS_PSI = dtostrf(FuelNOSPSI, 4, 1, buffer);
+
  Serial.print("MainFuelRAW: ");
   Serial.print(FuelMain);
  Serial.print(" MainFuel: ");
