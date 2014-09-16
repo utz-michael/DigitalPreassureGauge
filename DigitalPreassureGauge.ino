@@ -34,17 +34,21 @@ for(int x =0 ; x < 1000 ; x++){
  FuelMainCal = FuelMainCal + analogRead(0); 
  FuelCarburtorCal = FuelCarburtorCal + analogRead(2); 
  FuelNOSCal = FuelNOSCal + analogRead(3); 
+
 }
- Serial.print("MainFuelCal 1: ");
-  Serial.println(FuelMainCal);
+
   
  FuelMainCal = (int)((FuelMainCal /1000)+ .5);
  FuelCarburtorCal = (int)((FuelCarburtorCal /1000)+ .5); 
  FuelNOSCal = (int)((FuelNOSCal /1000)+ .5); 
- 
- Serial.print("MainFuelCal 2: ");
+  Serial.print("FuelMainCal: ");
   Serial.println(FuelMainCal);
-  
+   Serial.print("FuelCarburtorCal: ");
+  Serial.println(FuelCarburtorCal);
+  Serial.print("FuelNOS_cal: ");
+  Serial.println(FuelNOSCal);
+ 
+ 
     lcd.setCursor(0, 0);
     lcd.print("   Switch on    ");
     lcd.setCursor(0, 1);
@@ -67,6 +71,8 @@ FuelMain = analogRead(0);
 FuelCarburtor = analogRead(2);
 FuelNOS = analogRead(3);
 
+
+
 FuelMainPSI = (FuelMain - FuelMainCal)/7.14;
 FuelCarburtorPSI = (FuelCarburtor - FuelCarburtorCal)/7.14;
 FuelNOSPSI = (FuelNOS - FuelNOSCal)/7.14;
@@ -78,10 +84,6 @@ String FuelCarburtor_PSI = dtostrf(FuelCarburtorPSI, 4, 1, buffer);
 
 String FuelNOS_PSI = dtostrf(FuelNOSPSI, 4, 1, buffer);
 
- Serial.print("MainFuelRAW: ");
-  Serial.print(FuelMain);
- Serial.print(" MainFuel: ");
-  Serial.println(FuelMain_PSI);
 
 lcd.clear();
 
