@@ -49,6 +49,7 @@ for(int x =0 ; x < 100 ; x++){
 
 } while (FuelMainCal+10 < FuelMain);   
 
+lcd.clear() 
 }
 
 void loop() {
@@ -62,7 +63,7 @@ FuelCarburtorPSI = (FuelCarburtor - FuelCarburtorCal)/7.14;
 FuelNOSPSI = (FuelNOS - FuelNOSCal)/7.14;
 
 char buffer[10];
-String FuelMain_PSI = dtostrf(FuelMainPSI, 5, 2, buffer);
+String FuelMain_PSI = dtostrf(FuelMainPSI, 4, 1, buffer);
 
 
     lcd.setCursor(0, 0);
