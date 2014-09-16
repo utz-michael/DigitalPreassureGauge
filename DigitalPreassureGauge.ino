@@ -49,7 +49,11 @@ for(int x =0 ; x < 100 ; x++){
 
 } while (FuelMainCal+10 < FuelMain);   
 
-lcd.clear() 
+lcd.clear();
+
+    lcd.setCursor(0, 0);
+    lcd.print("Main  Carb. NOS ");
+
 }
 
 void loop() {
@@ -66,8 +70,7 @@ char buffer[10];
 String FuelMain_PSI = dtostrf(FuelMainPSI, 4, 1, buffer);
 
 
-    lcd.setCursor(0, 0);
-    lcd.print("Main  Carb. NOS ");
+   
     lcd.setCursor(0, 1);
     lcd.print(FuelMain_PSI);
     lcd.setCursor(5, 1);
