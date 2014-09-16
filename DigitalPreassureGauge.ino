@@ -5,9 +5,9 @@ int FuelMainCal = 0;
 int FuelCarburtorCal = 0; 
 int FuelNOSCal = 0; 
 
-int FuelMainPSI = 0; 
-int FuelCarburtorPSI = 0; 
-int FuelNOSPSI = 0; 
+float FuelMainPSI = 0; 
+float FuelCarburtorPSI = 0; 
+float FuelNOSPSI = 0; 
 
 int FuelMain = 0; 
 int FuelCarburtor = 0; 
@@ -61,10 +61,14 @@ FuelMainPSI = (FuelMain - FuelMainCal)/7.14;
 FuelCarburtorPSI = (FuelCarburtor - FuelCarburtorCal)/7.14;
 FuelNOSPSI = (FuelNOS - FuelNOSCal)/7.14;
 
+char buffer[10];
+String FuelMain_PSI = dtostrf(FuelMainPSI, 5, 2, buffer);
+
+
     lcd.setCursor(0, 0);
     lcd.print("Main  Carb. NOS ");
     lcd.setCursor(0, 1);
-    lcd.print(FuelMainPSI);
+    lcd.print(FuelMain_PSI);
     lcd.setCursor(5, 1);
     lcd.print(FuelCarburtorPSI);
     lcd.setCursor(10, 1);
