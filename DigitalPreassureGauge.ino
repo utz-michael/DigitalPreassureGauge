@@ -14,7 +14,7 @@ RECEIVE_DATA_STRUCTURE mydata;
 
 
 
-
+unsigned long time;
 
 
 
@@ -71,6 +71,15 @@ if(ET.receiveData()){
 FuelMain = mydata.SeriallMain ;
 FuelCarburtor = mydata.SeriallCarburtor ;
 FuelNOS = mydata.SeriallNos ;
+ time = millis();
+}
+
+
+if (millis()-time >= 1000 )
+{
+ FuelMain = 706; 
+ FuelCarburtor = 706; 
+ FuelNOS = 706; 
 }
 
 
