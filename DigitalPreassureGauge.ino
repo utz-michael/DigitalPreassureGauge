@@ -1,9 +1,26 @@
 #include <LiquidCrystal.h>
+#include <EasyTransfer.h>
+//create object
+EasyTransfer ET;
+struct RECEIVE_DATA_STRUCTURE{
+//put your variable definitions here for the data you want to receive
+//THIS MUST BE EXACTLY THE SAME ON THE OTHER ARDUINO
+int SeriallMain;
+int SeriallCarburtor;
+int SeriallNos;
+};
+//give a name to the group of data
+RECEIVE_DATA_STRUCTURE mydata;
+
+
+
+
+
+
+
+
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-float FuelMainCal = 0; 
-float FuelCarburtorCal = 0; 
-float FuelNOSCal = 0; 
 
 float FuelMainPSI = 0; 
 float FuelCarburtorPSI = 0; 
@@ -15,7 +32,11 @@ int FuelNOS = 0;
 
 
 void setup() {
-   Serial.begin(9600);
+   Serial.begin(57600);
+//start the library, pass in the data details and the name of the serial port. Can be Serial, Serial1, Serial2, etc.
+ET.begin(details(mydata), &Serial);
+  
+ 
     lcd.begin(16, 2);
     lcd.setCursor(0, 0);
     lcd.print("    Digital     ");
@@ -30,53 +51,32 @@ delay(3000);
     lcd.print("Fuelpump off    ");
 delay(3000);    
     
-for(int x =0 ; x < 1000 ; x++){
+
  
- FuelMainCal = FuelMainCal + analogRead(1); 
- FuelCarburtorCal = FuelCarburtorCal + analogRead(2); 
- FuelNOSCal = FuelNOSCal + analogRead(3); 
-
-}
-
-  
- FuelMainCal = (int)((FuelMainCal /1000)+ .5);
- FuelCarburtorCal = (int)((FuelCarburtorCal /1000)+ .5); 
- FuelNOSCal = (int)((FuelNOSCal /1000)+ .5); 
-  Serial.print("FuelMainCal: ");
-  Serial.println(FuelMainCal);
-   Serial.print("FuelCarburtorCal: ");
-  Serial.println(FuelCarburtorCal);
-  Serial.print("FuelNOS_cal: ");
-  Serial.println(FuelNOSCal);
  
   
     lcd.setCursor(0, 0);
     lcd.print("   Switch on    ");
     lcd.setCursor(0, 1);
     lcd.print("    Fuelpump    ");
- /*   
- do
-{
-  delay(50);          // wait for sensors to stabilize
- FuelMain = analogRead(1);  // check the sensors
 
-} while (FuelMain < FuelMainCal +10 );   
-
-*/
 delay(3000);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-FuelMain = analogRead(1);
-FuelCarburtor = analogRead(2);
-FuelNOS = analogRead(3);
+
+if(ET.receiveData()){
+//this is how you access the variables. [name of the group].[variable name]
+//since we have data, we will blink it out.
+FuelMain = mydata.SeriallMain ;
+FuelCarburtor = mydata.SeriallCarburtor ;
+FuelNOS = mydata.SeriallNos ;
+}
 
 
-
-FuelMainPSI = (FuelMain - FuelMainCal)/7.14;
-FuelCarburtorPSI = (FuelCarburtor - FuelCarburtorCal)/7.14;
-FuelNOSPSI = (FuelNOS - FuelNOSCal)/7.14;
+FuelMainPSI = FuelMain /7.14;
+FuelCarburtorPSI = FuelCarburtor /7.14;
+FuelNOSPSI = FuelNOS /7.14;
 
 char buffer[20];
 String FuelMain_PSI = dtostrf(FuelMainPSI, 4, 1, buffer);
