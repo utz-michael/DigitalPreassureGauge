@@ -22,13 +22,13 @@ RECEIVE_DATA_STRUCTURE mydata;
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 
-float FuelMainPSI = 0; 
-float FuelCarburtorPSI = 0; 
-float FuelNOSPSI = 0; 
+float FuelMainPSI = -99; 
+float FuelCarburtorPSI = -99; 
+float FuelNOSPSI = -99; 
 
-int FuelMain = 0; 
-int FuelCarburtor = 0; 
-int FuelNOS = 0; 
+int FuelMain = 706; 
+int FuelCarburtor = 706; 
+int FuelNOS = 706; 
 
 
 void setup() {
