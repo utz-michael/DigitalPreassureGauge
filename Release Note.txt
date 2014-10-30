@@ -1,0 +1,3 @@
+Release V1.0
+
+-Daten werden per funk übertragen
