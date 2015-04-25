@@ -172,7 +172,7 @@ lcd.clear();
 
     lcd.setCursor(0, 0);
     //lcd.print("1234567890123456");
-      lcd.print("RPM1  ARF  MAP  ");
+      lcd.print("RPM1  ARF  REVO ");
     lcd.setCursor(0, 1);
     lcd.print(RPM1);
     lcd.setCursor(5, 1);
